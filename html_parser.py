@@ -37,6 +37,7 @@ for htmlfile in glob.glob(os.path.join(path, "*.html")):
     # append artists data
     
     obj['works'].append({'title':works,'currency':'USD','totalLifetimeValue':price[1]})
+    obj['totalValue'] = price[1]
     artists.append(obj)
     
 
