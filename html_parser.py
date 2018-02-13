@@ -45,6 +45,7 @@ jarray=json.dumps(artists)
 
 print (artists)
 
+
 path2= 'data/2017-12-20/'
 
 for htmlfile in glob.glob(os.path.join(path2, "*.html")):
@@ -52,13 +53,15 @@ for htmlfile in glob.glob(os.path.join(path2, "*.html")):
         page = f.read()
     soup = BeautifulSoup(page,"lxml")
     head = soup.h3.string
-    obj={'artist':head,'works':[]}
+    obj={'artist':head,'totalValue':0,'works':[]}
     index = -1
+    
+    # aggregate the data of a same artist
     for i,data in enumerate(artists):
-    	if data["artist"] == head:
-    		obj = data
-    		index = i
-    		break
+        if data["artist"] == head:
+            obj = data
+            index = i
+            break
     works = soup.find_all('h3')[1].string
     pricePath = soup.find_all('div')[1]
     amount = soup.find_all('span')
@@ -66,7 +69,7 @@ for htmlfile in glob.glob(os.path.join(path2, "*.html")):
     price = round(int(amount[1].string.replace(',','')),2)
     if currency == 'GBP':
         price = price*1.34
-    obj['works'].append({'title':works,'currency':'USD','amount':price})
+    obj['works'].append({'title':works,'currency':'USD','totalLifetimeValue':price})
     if index != -1:
         artists.pop(index)
     artists.append(obj)
