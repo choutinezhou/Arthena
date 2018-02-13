@@ -23,7 +23,13 @@ for htmlfile in glob.glob(os.path.join(path, "*.html")):
     head = soup.h2.string
     # parse the art work titles
     works=soup.h3.string
-    artists.append({'artist':head,'works':works})
+    # parse the price
+    price=soup.find_all('div')[1].string
+    # create an object to include each artist's data
+    obj={'artist':head,'works':[]}
+    obj['works'].append({'title':works,'price':price})
+    artists.append(obj)
+    
 
 # transform the list to JSON arrays    
 jarray=json.dumps(artists)
