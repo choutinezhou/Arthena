@@ -67,10 +67,11 @@ for htmlfile in glob.glob(os.path.join(path2, "*.html")):
     amount = soup.find_all('span')
     currency = amount[0].string
     # extract the price from the span
-    price = round(int(amount[1].string.replace(',','')),2)
+    price2 = round(int(amount[1].string.replace(',','')),2)
     if currency == 'GBP':
-        price = price*1.34
-    obj['works'].append({'title':works,'currency':'USD','totalLifetimeValue':price})
+        price2 = price2*1.34
+    obj['works'].append({'title':works,'currency':'USD','totalLifetimeValue':price2})
+    obj['totalValue'] = obj['totalValue'] + price2
     if index != -1:
         artists.pop(index)
     artists.append(obj)
