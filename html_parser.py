@@ -24,12 +24,19 @@ for htmlfile in glob.glob(os.path.join(path, "*.html")):
     # parse the art work titles
     works=soup.h3.string
     # parse the price
-    price=soup.find_all('div')[1].string
+    # split the price into currency and ammount
+    price=soup.find_all('div')[1].string.split()
+    price[1] = round(int(price[1].replace(',','')),2)
+    # if the currency is GBP, convert it into USD with 1.34 exchange rate
+    if(price[0]=='GBP'):
+        price[1] = price[1]*1.34
+    price[1] = round(price[1],2)
+    
     # create an object to include each artist's data
     obj={'artist':head,'works':[]}
     # append artists data
-    # split the price into currency and ammount
-    obj['works'].append({'title':works,'currency':price.split()[0],'amount':price.split()[1]})
+    
+    obj['works'].append({'title':works,'currency':'USD','amount':price[1]})
     artists.append(obj)
     
 
