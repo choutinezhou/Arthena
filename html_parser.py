@@ -33,10 +33,10 @@ for htmlfile in glob.glob(os.path.join(path, "*.html")):
     price[1] = round(price[1],2)
     
     # create an object to include each artist's data
-    obj={'artist':head,'works':[]}
+    obj = {'artist':head,'totalValue':0,'works':[]}
     # append artists data
     
-    obj['works'].append({'title':works,'currency':'USD','amount':price[1]})
+    obj['works'].append({'title':works,'currency':'USD','totalLifetimeValue':price[1]})
     artists.append(obj)
     
 
