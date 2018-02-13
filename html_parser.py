@@ -43,9 +43,8 @@ for htmlfile in glob.glob(os.path.join(path, "*.html")):
 # transform the list to JSON arrays    
 jarray=json.dumps(artists)
 
-print (artists)
 
-
+# identify the directory of folder 2017-12-20
 path2= 'data/2017-12-20/'
 
 for htmlfile in glob.glob(os.path.join(path2, "*.html")):
@@ -66,6 +65,7 @@ for htmlfile in glob.glob(os.path.join(path2, "*.html")):
     pricePath = soup.find_all('div')[1]
     amount = soup.find_all('span')
     currency = amount[0].string
+    # extract the price from the span
     price = round(int(amount[1].string.replace(',','')),2)
     if currency == 'GBP':
         price = price*1.34
@@ -74,6 +74,7 @@ for htmlfile in glob.glob(os.path.join(path2, "*.html")):
         artists.pop(index)
     artists.append(obj)
 
+# transform the list to JSON arrays 
 jarray = json.dumps(artists)
 
 print (artists)
