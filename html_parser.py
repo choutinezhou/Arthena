@@ -27,7 +27,9 @@ for htmlfile in glob.glob(os.path.join(path, "*.html")):
     price=soup.find_all('div')[1].string
     # create an object to include each artist's data
     obj={'artist':head,'works':[]}
-    obj['works'].append({'title':works,'price':price})
+    # append artists data
+    # split the price into currency and ammount
+    obj['works'].append({'title':works,'currency':price.split()[0],'amount':price.split()[1]})
     artists.append(obj)
     
 
